@@ -1,0 +1,130 @@
+Teacher
+  id -> uuid
+  email -> String
+  password -> String
+  name -> String
+  image_url -> URL_String
+  date_of_birth -> Date
+  education_qualification -> JSON
+
+Student
+  id -> uuid
+  email -> String
+  password -> String
+  image_url -> URL_String
+  name -> String
+  batch -> String
+  date_of_birth -> Date
+  education_qualification -> JSON
+
+education_qualification
+  {
+    "education_qualification":[
+      {
+        "degree_name": "",
+        "institution_name": "",
+        "CGPA": "",
+        "from_year": "",
+        "to_year": "",
+      }
+    ]
+  }
+
+Exam
+  id -> uuid
+  teacher_id -> uuid
+  examination_name -> String
+  batch -> String
+  questions_and_solutions -> JSON
+  total_marks -> Decimal
+  exam_period : hours
+  expiry_date -> DateTime
+
+questions_and_solutions
+  {
+    "questions_and_solutions":[
+      {
+        "mcq":[
+          {
+            "question_id": "",
+            "question": "",
+            "option1": "",
+            "option2": "",
+            "option3": "",
+            "option4": "",
+            "solution": "option1/option2/option3/option4"
+          }
+        ],
+        "subjective":[
+          {
+            "question_id": "",
+            "question": "",
+            "solution": "",
+          }
+        ],
+        "coding":[
+          {
+            "question_id": "",
+            "question": "",
+            "test_cases":[
+              {
+                "test_case":"",
+                "result":"",
+              },
+              {
+                "test_case":"",
+                "result":"",
+              }
+            ]
+
+          }
+        ]
+      },
+
+    ]
+  }
+
+
+Result
+  id -> uuid
+  exam_start_date_time -> Date ( datetime.now() -  exam_period)
+  exam_id -> uuid
+  student_id -> uuid
+  teacher_id -> uuid
+  student_solutions -> JSON
+  score -> Decimal
+  total_marks -> Decimal
+  grade -> String
+
+student_solutions
+  {
+    "student_solutions":[
+      {
+        "mcq":[
+          {
+            "question_id": "",
+            "solution": "option1/option2/option3/option4"
+          }
+        ],
+        "subjective":[
+          {
+            "question_id": "",
+            "solution": "",
+          }
+        ],
+        "coding":[
+          {
+            "question_id": "",
+            "source_code": "",
+          }
+        ]
+      },
+
+    ]
+  }
+
+
+
+
+  
+  

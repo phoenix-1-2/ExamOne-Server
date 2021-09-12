@@ -1,0 +1,37 @@
+Front End URLS
+/ -> Teacher ? or Student ?
+/student/login -> Student Login
+/student/register -> Student Register
+/teacher/login -> Teacher Login
+/teacher/register -> Teacher Register
+/logout -> Logout
+
+/teacher/profile -> Teacher Profile
+/student/profile -> Student Profile
+
+/teacher -> Teacher Home Page
+/student -> Student Home Page
+
+/teacher/exam/create -> Add a new exam ( CREATE RESULT)
+/teacher/exam/delete/<exam_id> -> Delete the exam and results associated with exam_id.
+/teacher/exam/all -> All Exams that teacher has made.
+
+/student/exam/undone_exams -> All available Exam for that student that student has not attended yet
+/student/exam/all -> Previous Exams for that student with their result
+
+/teacher/exam/<exam_id> -> Show all students who have done this exam with their score and grade and time of exam sitting.
+/student/exam/<exam_id>/info -> Exam Info
+********************************
+/student/exam/<exam_id> -> Exam start
+* Front end store data (solutions) of the exam 
+/student/exam/<exam_id>/_stop -> Exam stop 
+********************************
+
+/student/exam/<exam_id>/evaluate -> Evaluate the exam and store into result db
+/student/results/<exam_id> -> Question with their solution and with the student solutions + Result and where he get marks and how much
+/teacher/results/<exam_id> -> Every Student that appreaed in the exam (list) and with therir scores and also link(/teacher/results/<exam_id>/<student_id>) to which Teacher can see the exam 
+/teacher/results/<exam_id>/<student_id> -> Question with their solution and with the student solutions + Result and where he get marks and how much
+
+* Front- end  call HackerEarth API for running and compiling
+
+
