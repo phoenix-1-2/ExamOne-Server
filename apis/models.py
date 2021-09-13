@@ -3,15 +3,17 @@ import uuid
 
 from django.db.models.fields import URLField
 
-# Create your models here.
-
 
 class Teacher(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=200)
-    password = models.CharField(max_length=200)
+    password = models.CharField(max_length=500)
     name = models.CharField(max_length=200)
-    image_url = models.URLField(max_length=200)
+    gender = models.CharField(
+        max_length=20, choices=[("male", "male"), ("female", "female")], default="male"
+    )
+    is_verified = models.BooleanField(default=False)
+    image_url = models.URLField(max_length=500, blank=True)
     date_of_birth = models.DateField()
     education_qualification = models.JSONField()
 
@@ -19,10 +21,14 @@ class Teacher(models.Model):
 class Student(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=200)
-    password = models.CharField(max_length=200)
+    password = models.CharField(max_length=500)
     name = models.CharField(max_length=200)
+    gender = models.CharField(
+        max_length=20, choices=[("male", "male"), ("female", "female")], default="male"
+    )
+    is_verified = models.BooleanField(default=False)
     batch = models.CharField(max_length=10)
-    image_url = models.URLField(max_length=200)
+    image_url = models.URLField(max_length=500, blank=True)
     date_of_birth = models.DateField()
     education_qualification = models.JSONField()
 

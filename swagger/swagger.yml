@@ -61,14 +61,14 @@ paths:
               $ref: "#/components/schemas/StudentSchema"
       responses:
         "201":
-          description: "Successfully Registrated"
+          description: "Mail has been sent for the verfication"
           content:
             application/json:
               schema:
                 properties:
                   message:
                     type: string
-                    example: "Registration Successfull"
+                    example: "Verfication Mail Sent"
         "400":
           description: Bad Request
         "500":
@@ -117,6 +117,40 @@ paths:
               $ref: "#/components/schemas/TeacherSchema"
       responses:
         "201":
+          description: "Mail has been sent for the verfication"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Verfication Mail Sent"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+
+  /teacher/verify/{secret_code}/{teacher_id}:
+    post:
+      tags:
+        - Teacher
+      summary: Verfication Mail of a Teacher
+      description: Verfication Mail of a Teacher
+      parameters:
+        - in: path
+          name: secret_code
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: teacher_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        "201":
           description: "Successfully Registrated"
           content:
             application/json:
@@ -129,6 +163,48 @@ paths:
           description: Bad Request
         "500":
           description: Internal Server Error
+        "404":
+          description: Email Id Not Found
+        "410":
+          description: Link Expired
+
+  /student/verify/{secret_code}/{student_id}:
+    post:
+      tags:
+        - Student
+      summary: Verfication Mail of a Student
+      description: Verfication Mail of a Student
+      parameters:
+        - in: path
+          name: secret_code
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: student_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        "201":
+          description: "Successfully Registrated"
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: "Registration Successfull"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "410":
+          description: Link Expired
+        "404":
+          description: Email Id Not Found
 
   /teacher/profile:
     get:
@@ -937,6 +1013,9 @@ components:
         name:
           type: string
           example: "XYZ"
+        gender:
+          type: string
+          example: "Male/Female"
         date_of_birth:
           type: string
           example: "2019-05-17"
@@ -983,6 +1062,9 @@ components:
         name:
           type: string
           example: "XYZ"
+        gender:
+          type: string
+          example: "Male/Female"
         batch:
           type: string
           example: "A"

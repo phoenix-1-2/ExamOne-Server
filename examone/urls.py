@@ -17,4 +17,4 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
-urlpatterns = [path("/", include("apis.urls"))]
+urlpatterns = [path("", include("apis.urls"))]
