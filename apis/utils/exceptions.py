@@ -22,7 +22,7 @@ class UnauthorizedException(APIException):
 
 
 class BadRequestException(APIException):
-    status_code = 404
+    status_code = 400
     message = "Bad Request"
 
 

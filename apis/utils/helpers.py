@@ -70,25 +70,26 @@ def check_for_not_found(model, email):
         raise NotFoundException(f"{email} does not exist")
 
 
-def get_image_url_and_upload(image, teacher):
+def get_image_url_and_upload(image, user):
     try:
         if image:
+            type_of_user = "teacher" if type(user) == Teacher else "student"
             image_upload = cloudinary.uploader.upload(
                 image,
-                folder=f"examone/teachers/",
-                public_id=f"{teacher.id}",
+                folder=f"examone/{type_of_user}s/",
+                public_id=f"{user.id}",
                 overwrite=True,
             )
             return image_upload["url"]
         else:
             return (
                 DEFAULT_IMAGE_URL_MALE
-                if teacher.gender.lower().strip() == "male"
+                if user.gender.lower().strip() == "male"
                 else DEFAULT_IMAGE_URL_FEMALE
             )
     except Exception:
         return (
             DEFAULT_IMAGE_URL_MALE
-            if teacher.gender.lower().strip() == "male"
+            if user.gender.lower().strip() == "male"
             else DEFAULT_IMAGE_URL_FEMALE
         )

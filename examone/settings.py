@@ -27,10 +27,12 @@ DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "http://127.0.0.1:8000")
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-+x+w5)h-1w^+j2#fq@o!(+c17u@ih9#&r_wews6iynd&bhjf$r"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", True)
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ["*"]
 

@@ -9,68 +9,130 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Exam',
+            name="Exam",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('examination_name', models.CharField(max_length=200)),
-                ('batch', models.CharField(max_length=10)),
-                ('questions_and_solutions', models.JSONField()),
-                ('total_marks', models.DecimalField(decimal_places=2, max_digits=5)),
-                ('exam_period', models.TimeField()),
-                ('expiry_date', models.DateTimeField()),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("examination_name", models.CharField(max_length=200)),
+                ("batch", models.CharField(max_length=10)),
+                ("questions_and_solutions", models.JSONField()),
+                ("total_marks", models.DecimalField(decimal_places=2, max_digits=5)),
+                ("exam_period", models.TimeField()),
+                ("expiry_date", models.DateTimeField()),
             ],
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Student",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('email', models.EmailField(max_length=200)),
-                ('password', models.CharField(max_length=500)),
-                ('name', models.CharField(max_length=200)),
-                ('gender', models.CharField(choices=[('male', 'male'), ('female', 'female')], default='male', max_length=20)),
-                ('is_verified', models.BooleanField(default=False)),
-                ('batch', models.CharField(max_length=10)),
-                ('image_url', models.URLField(blank=True, max_length=500)),
-                ('date_of_birth', models.DateField()),
-                ('education_qualification', models.JSONField()),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("email", models.EmailField(max_length=200)),
+                ("password", models.CharField(max_length=500)),
+                ("name", models.CharField(max_length=200)),
+                (
+                    "gender",
+                    models.CharField(
+                        choices=[("male", "male"), ("female", "female")],
+                        default="male",
+                        max_length=20,
+                    ),
+                ),
+                ("is_verified", models.BooleanField(default=False)),
+                ("batch", models.CharField(max_length=10)),
+                ("image_url", models.URLField(blank=True, max_length=500)),
+                ("date_of_birth", models.DateField()),
+                ("education_qualification", models.JSONField()),
             ],
         ),
         migrations.CreateModel(
-            name='Teacher',
+            name="Teacher",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('email', models.EmailField(max_length=200)),
-                ('password', models.CharField(max_length=500)),
-                ('name', models.CharField(max_length=200)),
-                ('gender', models.CharField(choices=[('male', 'male'), ('female', 'female')], default='male', max_length=20)),
-                ('is_verified', models.BooleanField(default=False)),
-                ('image_url', models.URLField(blank=True, max_length=500)),
-                ('date_of_birth', models.DateField()),
-                ('education_qualification', models.JSONField()),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("email", models.EmailField(max_length=200)),
+                ("password", models.CharField(max_length=500)),
+                ("name", models.CharField(max_length=200)),
+                (
+                    "gender",
+                    models.CharField(
+                        choices=[("male", "male"), ("female", "female")],
+                        default="male",
+                        max_length=20,
+                    ),
+                ),
+                ("is_verified", models.BooleanField(default=False)),
+                ("image_url", models.URLField(blank=True, max_length=500)),
+                ("date_of_birth", models.DateField()),
+                ("education_qualification", models.JSONField()),
             ],
         ),
         migrations.CreateModel(
-            name='Result',
+            name="Result",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('exam_start_date_time', models.DateTimeField()),
-                ('student_solutions', models.JSONField(default=dict)),
-                ('total_marks', models.DecimalField(decimal_places=2, max_digits=5)),
-                ('score', models.DecimalField(decimal_places=2, max_digits=5)),
-                ('grade', models.CharField(max_length=10)),
-                ('exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apis.exam')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apis.student')),
-                ('teacher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apis.teacher')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("exam_start_date_time", models.DateTimeField()),
+                ("student_solutions", models.JSONField(default=dict)),
+                ("total_marks", models.DecimalField(decimal_places=2, max_digits=5)),
+                ("score", models.DecimalField(decimal_places=2, max_digits=5)),
+                ("grade", models.CharField(max_length=10)),
+                (
+                    "exam",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="apis.exam"
+                    ),
+                ),
+                (
+                    "student",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="apis.student"
+                    ),
+                ),
+                (
+                    "teacher",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="apis.teacher"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='exam',
-            name='teacher',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apis.teacher'),
+            model_name="exam",
+            name="teacher",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="apis.teacher"
+            ),
         ),
     ]
