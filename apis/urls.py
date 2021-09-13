@@ -23,4 +23,5 @@ urlpatterns = [
     path("teacher/verify/<secret_code>/<teacher_id>", views_auth.teacher_verify_email),
     path("student/login", views_auth.student_login),
     path("student/register", views_auth.student_registeration),
+    path("student/verify/<secret_code>/<student_id>", views_auth.student_verify_email),
 ]
