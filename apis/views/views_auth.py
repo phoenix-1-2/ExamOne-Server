@@ -16,7 +16,6 @@ from ..utils.exceptions import (
     EmailNotVerfiedException,
 )
 import jwt
-import uuid
 from datetime import datetime, timedelta
 
 CRYPTO_SECRET_KEY = settings.CRYPTO_SECRET_KEY
@@ -54,7 +53,10 @@ def teacher_login(request):
         JWT_SECRET_KEY,
         algorithm=JWT_ALGORITHM,
     )
-    response = {"message": "Authentication Successfull", "auth_key": encoded_jwt}
+    response = {
+        "message": "Authentication Successfull",
+        "auth_key": f"Bearer {encoded_jwt}",
+    }
     return JsonResponse(data=response, status=200)
 
 
@@ -157,7 +159,10 @@ def student_login(request):
         JWT_SECRET_KEY,
         algorithm=JWT_ALGORITHM,
     )
-    response = {"message": "Authentication Successfull", "auth_key": encoded_jwt}
+    response = {
+        "message": "Authentication Successfull",
+        "auth_key": f"Bearer {encoded_jwt}",
+    }
     return JsonResponse(data=response, status=200)
 
 
