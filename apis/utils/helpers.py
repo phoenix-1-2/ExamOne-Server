@@ -1,4 +1,4 @@
-from ..models import Teacher
+from ..models import Student, Teacher
 from apis.utils.exceptions import (
     BadRequestException,
     NotFoundException,
@@ -16,6 +16,27 @@ JWT_ALGORITHM = settings.JWT_ALGORITHM
 DEFAULT_IMAGE_URL_MALE = settings.DEFAULT_IMAGE_URL_MALE
 DEFAULT_IMAGE_URL_FEMALE = settings.DEFAULT_IMAGE_URL_FEMALE
 DOMAIN_NAME = settings.DOMAIN_NAME
+
+
+def check_token_and_get_student(request):
+    auth_token = request.headers.get("Authorization", None)
+    if auth_token is None:
+        raise UnauthorizedException("Token not passed")
+    if auth_token.split(" ")[0].lower() != "bearer":
+        raise BadRequestException("Token should be a bearer token")
+
+    auth_token = auth_token.split(" ")[1]
+    try:
+        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        student_id = data["student_id"]
+        if not Student.objects.filter(id=student_id).exists():
+            raise NotFoundException(f"Does not exist")
+        student = Student.objects.get(id=student_id)
+        if not student.is_verified:
+            raise BadRequestException("User Not Verfied")
+        return student
+    except jwt.ExpiredSignatureError:
+        raise UnauthorizedException("Login Again,  Auth Token Expired")
 
 
 def check_token_and_get_teacher(request):

@@ -1,6 +1,5 @@
 from apis.models import Teacher
 from apis.utils.helpers import (
-    check_for_empty,
     check_token_and_get_teacher,
     get_image_url_and_upload,
     send_verfication_mail,

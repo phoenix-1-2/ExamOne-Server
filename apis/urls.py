@@ -27,4 +27,5 @@ urlpatterns = [
     path("student/verify/<secret_code>/<student_id>", views_auth.student_verify_email),
     # Teacher APIs
     path("teacher/profile", views_teacher.get_teacher_profile),
+    path("student/profile", views_student.get_student_profile),
 ]
