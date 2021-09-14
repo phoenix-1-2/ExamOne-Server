@@ -7,11 +7,11 @@ import jwt
 from datetime import datetime, timedelta
 import os
 
-JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
-JWT_ALGORITHM = "HS256"
-DEFAULT_IMAGE_URL_MALE = "https://res.cloudinary.com/phoenix-redstone-04/image/upload/v1631534702/examone/default/default_male_fr1qy0.jpg"
-DEFAULT_IMAGE_URL_FEMALE = "https://res.cloudinary.com/phoenix-redstone-04/image/upload/v1631534701/examone/default/default_female_rvgzrl.jpg"
-DOMAIN_NAME = "http://127.0.0.1:8000/"
+JWT_SECRET_KEY = settings.JWT_SECRET_KEY
+JWT_ALGORITHM = settings.JWT_ALGORITHM
+DEFAULT_IMAGE_URL_MALE = settings.DEFAULT_IMAGE_URL_MALE
+DEFAULT_IMAGE_URL_FEMALE = settings.DEFAULT_IMAGE_URL_FEMALE
+DOMAIN_NAME = settings.DOMAIN_NAME
 
 
 def replace(html_content, search_string, replace_string):
