@@ -26,7 +26,11 @@ class BadRequestException(APIException):
     message = "Bad Request"
 
 
+class InvalidTokenException(APIException):
+    status_code = 401
+    message = "Invalid Token"
+
+
 class NotFoundException(APIException):
     status_code = 404
-    default_detail = "Not Found"
-    default_code = "not_found"
+    message = "Not Found"

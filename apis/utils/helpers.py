@@ -3,6 +3,7 @@ from apis.utils.exceptions import (
     BadRequestException,
     NotFoundException,
     UnauthorizedException,
+    InvalidTokenException,
 )
 import cloudinary.uploader
 from django.conf import settings
@@ -37,6 +38,8 @@ def check_token_and_get_student(request):
         return student
     except jwt.ExpiredSignatureError:
         raise UnauthorizedException("Login Again,  Auth Token Expired")
+    except KeyError:
+        raise InvalidTokenException("Auth Token Invalid")
 
 
 def check_token_and_get_teacher(request):
@@ -140,3 +143,43 @@ def get_image_url_and_upload(image, user):
             if user.gender.lower().strip() == "male"
             else DEFAULT_IMAGE_URL_FEMALE
         )
+
+
+# TODO: implement this function
+def evaluate_exam_score(questions_and_solutions, student_solutions):
+    return 0
+
+
+# TODO: implement this function
+def evaluate_exam_grade(score, total_marks):
+    return "A+"
+
+
+# TODO: implement this function
+def get_exam_report(questions_and_solutions, student_solutions):
+    report = {
+        "mcq": {"exam_set": []},
+        "subjective": {"exam_set": []},
+        "coding": {"exam_set": []},
+    }
+    return report
+
+
+# TODO: implement this function
+def get_total_mcqs(questions_and_solutions):
+    return 0
+
+
+# TODO: implement this function
+def get_total_subjective_questions(questions_and_solutions):
+    return 0
+
+
+# TODO: implement this function
+def get_total_coding_problems(questions_and_solutions):
+    return 0
+
+
+# TODO: implement this function
+def get_questions(questions_and_solutions):
+    return {}

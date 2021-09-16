@@ -100,7 +100,7 @@ def teacher_registeration(request):
     teacher.save()
     send_verfication_mail(teacher)
     response = {"message": "Verfication Mail Sent"}
-    return JsonResponse(response, status=200)
+    return JsonResponse(response, status=201)
 
 
 @api_view(["POST"])
@@ -209,7 +209,7 @@ def student_registeration(request):
     student.save()
     send_verfication_mail(student)
     response = {"message": "Verfication Mail Sent"}
-    return JsonResponse(response, status=200)
+    return JsonResponse(response, status=201)
 
 
 @api_view(["POST"])

@@ -27,5 +27,16 @@ urlpatterns = [
     path("student/verify/<secret_code>/<student_id>", views_auth.student_verify_email),
     # Teacher APIs
     path("teacher/profile", views_teacher.get_teacher_profile),
+    path("teacher/exam", views_teacher.create_exam),
+    path("teacher/exam/_all", views_teacher.get_all_exams),
+    path("teacher/exam/<exam_id>", views_teacher.delete_exam),
+    path("teacher/results/<exam_id>", views_teacher.get_batch_result),
+    path("teacher/results/<exam_id>/<student_id>", views_teacher.get_student_result),
+    # Student APIs
     path("student/profile", views_student.get_student_profile),
+    path("student/exam/undone_exams", views_student.get_undone_exams),
+    path("student/exam/<exam_id>", views_student.get_exam_questions),
+    path("student/exam/<exam_id>/_info", views_student.get_exam_info),
+    path("student/results/<exam_id>", views_student.get_student_result),
+    path("student/exam/<exam_id>/evaluate", views_student.evaluate_exams),
 ]
