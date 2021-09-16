@@ -1,17 +1,66 @@
-from ..models import Teacher
-from apis.utils.exceptions import BadRequestException, NotFoundException
+from ..models import Student, Teacher
+from apis.utils.exceptions import (
+    BadRequestException,
+    NotFoundException,
+    UnauthorizedException,
+    InvalidTokenException,
+)
 import cloudinary.uploader
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 import jwt
 from datetime import datetime, timedelta
-import os
+import requests
 
 JWT_SECRET_KEY = settings.JWT_SECRET_KEY
 JWT_ALGORITHM = settings.JWT_ALGORITHM
 DEFAULT_IMAGE_URL_MALE = settings.DEFAULT_IMAGE_URL_MALE
 DEFAULT_IMAGE_URL_FEMALE = settings.DEFAULT_IMAGE_URL_FEMALE
 DOMAIN_NAME = settings.DOMAIN_NAME
+
+
+def check_token_and_get_student(request):
+    auth_token = request.headers.get("Authorization", None)
+    if auth_token is None:
+        raise UnauthorizedException("Token not passed")
+    if auth_token.split(" ")[0].lower() != "bearer":
+        raise BadRequestException("Token should be a bearer token")
+
+    auth_token = auth_token.split(" ")[1]
+    try:
+        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        student_id = data["student_id"]
+        if not Student.objects.filter(id=student_id).exists():
+            raise NotFoundException(f"Does not exist")
+        student = Student.objects.get(id=student_id)
+        if not student.is_verified:
+            raise BadRequestException("User Not Verfied")
+        return student
+    except jwt.ExpiredSignatureError:
+        raise UnauthorizedException("Login Again,  Auth Token Expired")
+    except KeyError:
+        raise InvalidTokenException("Auth Token Invalid")
+
+
+def check_token_and_get_teacher(request):
+    auth_token = request.headers.get("Authorization", None)
+    if auth_token is None:
+        raise UnauthorizedException("Token not passed")
+    if auth_token.split(" ")[0].lower() != "bearer":
+        raise BadRequestException("Token should be a bearer token")
+
+    auth_token = auth_token.split(" ")[1]
+    try:
+        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        teacher_id = data["teacher_id"]
+        if not Teacher.objects.filter(id=teacher_id).exists():
+            raise NotFoundException(f"Does not exist")
+        teacher = Teacher.objects.get(id=teacher_id)
+        if not teacher.is_verified:
+            raise BadRequestException("User Not Verfied")
+        return teacher
+    except jwt.ExpiredSignatureError:
+        raise UnauthorizedException("Login Again,  Auth Token Expired")
 
 
 def replace(html_content, search_string, replace_string):
@@ -42,8 +91,9 @@ def send_verfication_mail(user):
     ]
     text_content = ""
     type_of_user = "teacher" if type(user) == Teacher else "student"
-    with open("email/email.html", "r") as f:
-        html_content = f.read()
+    html_content = requests.get(
+        "https://res.cloudinary.com/phoenix-redstone-04/raw/upload/v1631603991/examone/email/email_udwtpd.html"
+    ).text
     secret_code = jwt.encode(
         {
             "exp": datetime.now() + timedelta(days=1),
@@ -93,3 +143,43 @@ def get_image_url_and_upload(image, user):
             if user.gender.lower().strip() == "male"
             else DEFAULT_IMAGE_URL_FEMALE
         )
+
+
+# TODO: implement this function
+def evaluate_exam_score(questions_and_solutions, student_solutions):
+    return 0
+
+
+# TODO: implement this function
+def evaluate_exam_grade(score, total_marks):
+    return "A+"
+
+
+# TODO: implement this function
+def get_exam_report(questions_and_solutions, student_solutions):
+    report = {
+        "mcq": {"exam_set": []},
+        "subjective": {"exam_set": []},
+        "coding": {"exam_set": []},
+    }
+    return report
+
+
+# TODO: implement this function
+def get_total_mcqs(questions_and_solutions):
+    return 0
+
+
+# TODO: implement this function
+def get_total_subjective_questions(questions_and_solutions):
+    return 0
+
+
+# TODO: implement this function
+def get_total_coding_problems(questions_and_solutions):
+    return 0
+
+
+# TODO: implement this function
+def get_questions(questions_and_solutions):
+    return {}
