@@ -168,7 +168,11 @@ def get_all_exams(request):
         {
             "examination_name": exam["examination_name"],
             "batch": exam["batch"],
+<<<<<<< HEAD
+            "total_marks": float(exam["total_marks"]),
+=======
             "total_marks": exam["total_marks"],
+>>>>>>> main
             "exam_period": exam["exam_period"],
             "expiry_date": exam["expiry_date"],
         }
@@ -246,8 +250,8 @@ def get_student_result(request, exam_id, student_id):
         "exam_start_date_time": result.exam_start_date_time,
         "student_name": student.name,
         "teacher_name": teacher.name,
-        "score": result.score,
-        "max_score": result.total_marks,
+        "score": float(result.score),
+        "max_score": float(result.total_marks),
         "grade": result.grade,
         "report": get_exam_report(
             exam.questions_and_solutions, result.student_solutions
