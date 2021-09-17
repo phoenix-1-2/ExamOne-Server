@@ -137,7 +137,9 @@ def evaluate_exams(request, exam_id):
     if Result.objects.filter(Q(exam=exam) & Q(student=student)).exists():
         raise AlreadyExistsException("Already Submitted the exam")
 
-    score = evaluate_exam_score(exam.questions_and_solutions, student_solutions)
+    score = evaluate_exam_score(exam.questions_and_solutions, student_solutions)[
+        "total_score"
+    ]
     grade = evaluate_exam_grade(score, exam.total_marks)
 
     result = Result(
@@ -229,6 +231,7 @@ def get_exam_questions(request, exam_id):
         raise NotFoundException("Exam not found")
     exam = Exam.objects.get(Q(id=exam_id) & Q(batch=student.batch))
     response = get_questions(exam.questions_and_solutions)
+    response["total_marks"] = float(exam.total_marks)
     return JsonResponse(data=response, status=200)
 
 

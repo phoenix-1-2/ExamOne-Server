@@ -171,3 +171,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_IMAGE_URL_MALE = "https://res.cloudinary.com/phoenix-redstone-04/image/upload/v1631534702/examone/default/default_male_fr1qy0.jpg"
 DEFAULT_IMAGE_URL_FEMALE = "https://res.cloudinary.com/phoenix-redstone-04/image/upload/v1631534701/examone/default/default_female_rvgzrl.jpg"
 DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "http://127.0.0.1:8000")
+
+HACKEREARTH_SECRET_KEY = os.environ.get("HACKEREARTH_SECRET_KEY")
+HACKEREARTH_CLIENT_ID = os.environ.get("HACKEREARTH_CLIENT_ID")
+LANGUAGE_SUPPORTED = "CPP"

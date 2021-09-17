@@ -1,5 +1,42 @@
 {
-  "education_qualification": {},
-  "questions_and_solutions": {},
-  "student_solutions": {}
+  "student_solutions": {
+    "mcq": [
+      {
+        "question_id": "question_1_a",
+        "solution": "-4"
+      },
+      {
+        "question_id": "question_1_b",
+        "solution": "-10"
+      },
+      {
+        "question_id": "question_1_c",
+        "solution": "Earth"
+      }
+    ],
+    "subjective": [
+      {
+        "question_id": "question_2_a",
+        "solution": "Camel"
+      },
+      {
+        "question_id": "question_2_b",
+        "solution": "UPI"
+      },
+      {
+        "question_id": "question_2_c",
+        "solution": "IDK"
+      }
+    ],
+    "coding": [
+      {
+        "question_id": "question_3_a",
+        "source_code": "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout<<\"Hello World\";\n\n    return 0;\n}\n"
+      },
+      {
+        "question_id": "question_3_b",
+        "source_code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main()\n{   \n    string a;\n    getline(cin,a);\n    string ans = \"\";\n    for(int i=0;i<a.size();i++){\n        ans = a[i] + ans;\n    }\n    cout << ans;\n\n    return 0;\n}\n\n"
+      }
+    ]
+  }
 }
