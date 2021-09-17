@@ -168,7 +168,11 @@ def get_all_exams(request):
         {
             "examination_name": exam["examination_name"],
             "batch": exam["batch"],
+<<<<<<< HEAD
             "total_marks": float(exam["total_marks"]),
+=======
+            "total_marks": exam["total_marks"],
+>>>>>>> main
             "exam_period": exam["exam_period"],
             "expiry_date": exam["expiry_date"],
         }

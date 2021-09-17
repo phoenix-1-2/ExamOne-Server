@@ -72,6 +72,50 @@ def check_token_and_get_teacher(request):
         raise UnauthorizedException("Login Again,  Auth Token Expired")
 
 
+def check_token_and_get_student(request):
+    auth_token = request.headers.get("Authorization", None)
+    if auth_token is None:
+        raise UnauthorizedException("Token not passed")
+    if auth_token.split(" ")[0].lower() != "bearer":
+        raise BadRequestException("Token should be a bearer token")
+
+    auth_token = auth_token.split(" ")[1]
+    try:
+        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        student_id = data["student_id"]
+        if not Student.objects.filter(id=student_id).exists():
+            raise NotFoundException(f"Does not exist")
+        student = Student.objects.get(id=student_id)
+        if not student.is_verified:
+            raise BadRequestException("User Not Verfied")
+        return student
+    except jwt.ExpiredSignatureError:
+        raise UnauthorizedException("Login Again,  Auth Token Expired")
+    except KeyError:
+        raise InvalidTokenException("Auth Token Invalid")
+
+
+def check_token_and_get_teacher(request):
+    auth_token = request.headers.get("Authorization", None)
+    if auth_token is None:
+        raise UnauthorizedException("Token not passed")
+    if auth_token.split(" ")[0].lower() != "bearer":
+        raise BadRequestException("Token should be a bearer token")
+
+    auth_token = auth_token.split(" ")[1]
+    try:
+        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+        teacher_id = data["teacher_id"]
+        if not Teacher.objects.filter(id=teacher_id).exists():
+            raise NotFoundException(f"Does not exist")
+        teacher = Teacher.objects.get(id=teacher_id)
+        if not teacher.is_verified:
+            raise BadRequestException("User Not Verfied")
+        return teacher
+    except jwt.ExpiredSignatureError:
+        raise UnauthorizedException("Login Again,  Auth Token Expired")
+
+
 def replace(html_content, search_string, replace_string):
     index = html_content.find(search_string)
     html_content = (
