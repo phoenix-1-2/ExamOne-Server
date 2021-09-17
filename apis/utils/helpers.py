@@ -218,7 +218,7 @@ def run_and_get_result(source_code, test_case):
         response = json.loads(response.text)
         output_url = response["result"]["run_status"]["output"]
         response = requests.get(output_url)
-        return response.text
+        return response.text.strip()
     except Exception as e:
         raise ServiceUnavailableException(str(e))
 
