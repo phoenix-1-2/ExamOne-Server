@@ -247,6 +247,7 @@ def get_undone_exams(request):
     for exam in all_exams:
         if not Result.objects.filter(exam=exam).exists():
             res = {
+                "exam_id": exam.id,
                 "examination_name": exam.examination_name,
                 "batch": exam.batch,
                 "total_marks": float(exam.total_marks),

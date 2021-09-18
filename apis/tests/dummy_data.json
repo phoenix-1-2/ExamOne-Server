@@ -128,5 +128,23 @@
         }
       ]
     }
+  },
+  "education_qualification": {
+    "education_qualification": [
+      {
+        "degree_name": "Bachelor's Degree",
+        "institution_name": "IIT Delhi",
+        "CGPA": 8,
+        "from_year": 2018,
+        "to_year": 2022
+      },
+      {
+        "degree_name": "High School",
+        "institution_name": "KV Mumbai",
+        "CGPA": 9.0,
+        "from_year": 2017,
+        "to_year": 2018
+      }
+    ]
   }
 }

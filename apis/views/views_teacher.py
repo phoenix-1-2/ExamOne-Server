@@ -150,9 +150,12 @@ def delete_exam(request, exam_id):
     exam = Exam.objects.get(id=exam_id)
     if exam.teacher != teacher:
         raise UnauthorizedException("Not allowed to access exam")
+    results = Result.objects.filter(exam=exam)
+    for result in results:
+        result.delete()
     exam.delete()
     response = {"message": "Deleted Successfully"}
-    return JsonResponse(data=response, status=204)
+    return JsonResponse(data=response, status=200)
 
 
 @api_view(["GET"])
@@ -166,6 +169,7 @@ def get_all_exams(request):
     queryset = Exam.objects.filter(teacher=teacher).values()
     exams = [
         {
+            "exam_id": exam["id"],
             "examination_name": exam["examination_name"],
             "batch": exam["batch"],
             "total_marks": float(exam["total_marks"]),
@@ -192,6 +196,14 @@ def get_batch_result(request, exam_id):
     if exam.teacher != teacher:
         raise UnauthorizedException("Not allowed to access exam")
     queryset = Result.objects.filter(Q(teacher=teacher) & Q(exam=exam))
+    if len(queryset) == 0:
+        response = {
+            "exam_name": exam.examination_name,
+            "teacher_name": teacher.name,
+            "batch_report": [],
+        }
+        return JsonResponse(data=response, status=200)
+
     highest_score = queryset.order_by("score").last()
     lowest_score = queryset.order_by("score").first()
     response = {
