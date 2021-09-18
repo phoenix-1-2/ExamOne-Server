@@ -5,10 +5,14 @@ charset-normalizer==2.0.4
 click==8.0.1
 cloudinary==1.26.0
 cryptocode==0.1
+dj-database-url==0.5.0
 Django==3.2.7
+django-heroku==0.0.0
 djangorestframework==3.12.4
+gunicorn==20.1.0
 idna==3.2
 mypy-extensions==0.4.3
+ParallelDots==3.2.14
 pathspec==0.9.0
 platformdirs==2.3.0
 psycopg2-binary==2.9.1
@@ -26,3 +30,4 @@ starkbank-ecdsa==1.1.1
 tomli==1.2.1
 typing-extensions==3.10.0.2
 urllib3==1.26.6
+whitenoise==5.3.0
