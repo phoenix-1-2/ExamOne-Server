@@ -7,4 +7,6 @@ It can evaluate the examinations ( objective, subjective &amp; coding tests ) us
 
   ## Swagger OpenAPI Documentation
   
-**[Documentation](https://app.swaggerhub.com/apis-docs/phoenix-1-2/ExamOne/v1.0.0/)**
+**[OpenAPI Documentation](https://app.swaggerhub.com/apis-docs/phoenix-1-2/ExamOne/v1.0.0/)**
+
+**API URL** https://exam-one.herokuapp.com
