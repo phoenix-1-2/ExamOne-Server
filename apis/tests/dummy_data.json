@@ -1,42 +1,132 @@
 {
   "student_solutions": {
-    "mcq": [
-      {
-        "question_id": "question_1_a",
-        "solution": "-4"
-      },
-      {
-        "question_id": "question_1_b",
-        "solution": "-10"
-      },
-      {
-        "question_id": "question_1_c",
-        "solution": "Earth"
-      }
-    ],
-    "subjective": [
-      {
-        "question_id": "question_2_a",
-        "solution": "Camel"
-      },
-      {
-        "question_id": "question_2_b",
-        "solution": "UPI"
-      },
-      {
-        "question_id": "question_2_c",
-        "solution": "IDK"
-      }
-    ],
-    "coding": [
-      {
-        "question_id": "question_3_a",
-        "source_code": "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout<<\"Hello World\";\n\n    return 0;\n}\n"
-      },
-      {
-        "question_id": "question_3_b",
-        "source_code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main()\n{   \n    string a;\n    getline(cin,a);\n    string ans = \"\";\n    for(int i=0;i<a.size();i++){\n        ans = a[i] + ans;\n    }\n    cout << ans;\n\n    return 0;\n}\n\n"
-      }
-    ]
+    "student_solutions": {
+      "mcq": [
+        {
+          "question_id": "question_1_a",
+          "solution": "-4"
+        },
+        {
+          "question_id": "question_1_b",
+          "solution": "-10"
+        },
+        {
+          "question_id": "question_1_c",
+          "solution": "Earth"
+        }
+      ],
+      "subjective": [
+        {
+          "question_id": "question_2_a",
+          "solution": "A photon is a quantum object. As such, a photon acts a little like a particle and a little like a wave, but is actually something more complex."
+        },
+        {
+          "question_id": "question_2_b",
+          "solution": "Yes,It can generate heat but it is little low but yes it can."
+        },
+        {
+          "question_id": "question_2_c",
+          "solution": "Yes, gold can be created from other elements but it require nuclear energy. So its kind of impossible to create."
+        }
+      ],
+      "coding": [
+        {
+          "question_id": "question_3_a",
+          "source_code": "#include <iostream>\n\nusing namespace std;\n\nint main()\n{\n    cout<<\"Hello World\";\n\n    return 0;\n}\n"
+        },
+        {
+          "question_id": "question_3_b",
+          "source_code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main()\n{   \n    string a;\n    getline(cin,a);\n    string ans = \"\";\n    for(int i=0;i<a.size();i++){\n        ans = a[i] + ans;\n    }\n    cout << ans;\n\n    return 0;\n}\n\n"
+        }
+      ]
+    }
+  },
+  "questions_and_solutions": {
+    "questions_and_solutions": {
+      "mcq": [
+        {
+          "question_id": "question_1_a",
+          "question": "'If 5x + 32 = 4 - 2x' what is the value of x ?",
+          "option1": "-4",
+          "option2": "-3",
+          "option3": "4",
+          "option4": "7",
+          "solution": "-4",
+          "total_marks": 1
+        },
+        {
+          "question_id": "question_1_b",
+          "question": "Which of the following numbers is farthest from the number 1 on the number line?",
+          "option1": "-10",
+          "option2": "-5",
+          "option3": "0",
+          "option4": "10",
+          "solution": "-10",
+          "total_marks": 2
+        },
+        {
+          "question_id": "question_1_c",
+          "question": "Which planet is known as the 'Watery Planet' ?",
+          "option1": "Mercury",
+          "option2": "Earth",
+          "option3": "Mars",
+          "option4": "Jupiter",
+          "solution": "Earth",
+          "total_marks": 2
+        }
+      ],
+      "subjective": [
+        {
+          "question_id": "question_2_a",
+          "question": "As light from a star spreads out and weakens, do gaps form between the photons?",
+          "solution": "The answer depends on how you look at light. However, in the most accurate approach, gaps do not form between photons as light spreads out. Light is made up of tiny fundamental bits called photons. A photon is a quantum object. As such, a photon acts a little like a particle and a little like a wave, but is actually something more complex.",
+          "total_marks": 5
+        },
+        {
+          "question_id": "question_2_b",
+          "question": "Can sound waves generate heat?",
+          "solution": "Yes, sound waves can generate heat. In fact, sound waves almost always generate a little bit of heat as they travel and almost always end up as heat when they are absorbed.",
+          "total_marks": 5
+        },
+        {
+          "question_id": "question_2_c",
+          "question": "Can gold be created from other elements?",
+          "solution": "Yes, gold can be created from other elements. But the process requires nuclear reactions, and is so expensive that you currently cannot make money by selling the gold that you create from other elements.",
+          "total_marks": 5
+        }
+      ],
+      "coding": [
+        {
+          "question_id": "question_3_a",
+          "question": "Let's begin your journey towards coding with the very first question of coding world. Your task is to write code which prints Hello World.",
+          "test_cases": [
+            {
+              "test_case": "",
+              "result": "Hello World"
+            },
+            {
+              "test_case": "",
+              "result": "Hello World"
+            }
+          ],
+          "total_marks": 10
+        },
+        {
+          "question_id": "question_3_b",
+          "question": "Reverse a string",
+          "test_cases": [
+            {
+              "test_case": "Geeks for Geeks",
+              "result": "skeeG rof skeeG"
+            },
+            {
+              "test_case": "Nikhil",
+              "result": "lihkiN"
+            }
+          ],
+          "total_marks": 10
+        }
+      ]
+    }
   }
 }

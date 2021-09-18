@@ -14,7 +14,7 @@ import json
 from datetime import datetime, timedelta
 import requests
 import time
-
+import paralleldots
 
 JWT_SECRET_KEY = settings.JWT_SECRET_KEY
 JWT_ALGORITHM = settings.JWT_ALGORITHM
@@ -24,6 +24,7 @@ DOMAIN_NAME = settings.DOMAIN_NAME
 LIMITED_TEST_CASES_SIZE = 2
 HACKEREARTH_SECRET_KEY = settings.HACKEREARTH_SECRET_KEY
 LANGUAGE_CODE = settings.LANGUAGE_SUPPORTED
+PARALLEL_DOTS_API_KEY = settings.PARALLEL_DOTS_API_KEY
 SUBMISSION_URL = "https://api.hackerearth.com/v4/partner/code-evaluation/submissions/"
 TIME_WAIT_FOR_RESULT = 3
 
@@ -227,10 +228,16 @@ def evaluate_coding_result(original_result, student_result):
     return original_result.strip() == student_result.strip()
 
 
-# TODO: implement this function
 def check_correctness_of_solution(original_solution, solution):
-    "RETURN 0-1"
-    return 0.5
+    if original_solution.lower() == solution.lower():
+        return 1
+    try:
+        paralleldots.set_api_key(PARALLEL_DOTS_API_KEY)
+        response = paralleldots.similarity(original_solution, solution)
+        similarity_score = response["similarity_score"]
+        return similarity_score
+    except Exception:
+        return 0
 
 
 def evaluate_exam_score(questions_and_solutions, student_solutions):
@@ -312,7 +319,7 @@ def evaluate_exam_score(questions_and_solutions, student_solutions):
             check_correctness_of_solution(original_solution, solution)
             * question_subjective["total_marks"]
         )
-
+        marks_acheived = round(marks_acheived,2)
         subjectives_result.append(
             {
                 "question_id": question_id,
@@ -381,7 +388,7 @@ def evaluate_exam_score(questions_and_solutions, student_solutions):
     )
 
     result = {
-        "total_score": float(total_score),
+        "total_score": float(round(total_score, 1)),
         "result": {
             "mcq": mcq_result,
             "subjective": subjectives_result,

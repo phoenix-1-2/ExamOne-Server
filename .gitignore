@@ -1,4 +1,5 @@
 Project Design/
+settings.cfg
 build/
 coverage/
 npm-debug.log
