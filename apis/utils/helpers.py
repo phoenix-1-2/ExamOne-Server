@@ -14,63 +14,20 @@ import json
 from datetime import datetime, timedelta
 import requests
 import time
-import paralleldots
 
 JWT_SECRET_KEY = settings.JWT_SECRET_KEY
 JWT_ALGORITHM = settings.JWT_ALGORITHM
 DEFAULT_IMAGE_URL_MALE = settings.DEFAULT_IMAGE_URL_MALE
 DEFAULT_IMAGE_URL_FEMALE = settings.DEFAULT_IMAGE_URL_FEMALE
 DOMAIN_NAME = settings.DOMAIN_NAME
-LIMITED_TEST_CASES_SIZE = 2
 HACKEREARTH_SECRET_KEY = settings.HACKEREARTH_SECRET_KEY
 LANGUAGE_CODE = settings.LANGUAGE_SUPPORTED
-PARALLEL_DOTS_API_KEY = settings.PARALLEL_DOTS_API_KEY
-SUBMISSION_URL = "https://api.hackerearth.com/v4/partner/code-evaluation/submissions/"
+DANDELION_API_KEY = settings.DANDELION_API_KEY
+SUBMISSION_URL = settings.HACKEREARTH_SUBMISSION_URL
+DANDELION_API_URL = settings.DANDELION_API_URL
+
+LIMITED_TEST_CASES_SIZE = 2
 TIME_WAIT_FOR_RESULT = 3
-
-
-def check_token_and_get_student(request):
-    auth_token = request.headers.get("Authorization", None)
-    if auth_token is None:
-        raise UnauthorizedException("Token not passed")
-    if auth_token.split(" ")[0].lower() != "bearer":
-        raise BadRequestException("Token should be a bearer token")
-
-    auth_token = auth_token.split(" ")[1]
-    try:
-        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
-        student_id = data["student_id"]
-        if not Student.objects.filter(id=student_id).exists():
-            raise NotFoundException(f"Does not exist")
-        student = Student.objects.get(id=student_id)
-        if not student.is_verified:
-            raise BadRequestException("User Not Verfied")
-        return student
-    except jwt.ExpiredSignatureError:
-        raise UnauthorizedException("Login Again,  Auth Token Expired")
-    except KeyError:
-        raise InvalidTokenException("Auth Token Invalid")
-
-
-def check_token_and_get_teacher(request):
-    auth_token = request.headers.get("Authorization", None)
-    if auth_token is None:
-        raise UnauthorizedException("Token not passed")
-    if auth_token.split(" ")[0].lower() != "bearer":
-        raise BadRequestException("Token should be a bearer token")
-
-    auth_token = auth_token.split(" ")[1]
-    try:
-        data = jwt.decode(auth_token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
-        teacher_id = data["teacher_id"]
-        if not Teacher.objects.filter(id=teacher_id).exists():
-            raise NotFoundException(f"Does not exist")
-        teacher = Teacher.objects.get(id=teacher_id)
-        if not teacher.is_verified:
-            raise BadRequestException("User Not Verfied")
-        return teacher
-    except jwt.ExpiredSignatureError:
-        raise UnauthorizedException("Login Again,  Auth Token Expired")
 
 
 def check_token_and_get_student(request):
@@ -231,13 +188,16 @@ def evaluate_coding_result(original_result, student_result):
 def check_correctness_of_solution(original_solution, solution):
     if original_solution.lower() == solution.lower():
         return 1
-    try:
-        paralleldots.set_api_key(PARALLEL_DOTS_API_KEY)
-        response = paralleldots.similarity(original_solution, solution)
-        similarity_score = response["similarity_score"]
-        return similarity_score
-    except Exception:
-        return 0
+    params = {
+        "text1": original_solution,
+        "text2": solution,
+        "token": DANDELION_API_KEY,
+        "lang": "en",
+    }
+    response = requests.get(DANDELION_API_URL, params=params)
+    response = json.loads(response.text)
+    similarity_score = response["similarity"]
+    return similarity_score
 
 
 def evaluate_exam_score(questions_and_solutions, student_solutions):
@@ -319,7 +279,7 @@ def evaluate_exam_score(questions_and_solutions, student_solutions):
             check_correctness_of_solution(original_solution, solution)
             * question_subjective["total_marks"]
         )
-        marks_acheived = round(marks_acheived,2)
+        marks_acheived = round(marks_acheived, 2)
         subjectives_result.append(
             {
                 "question_id": question_id,

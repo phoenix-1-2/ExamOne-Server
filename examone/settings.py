@@ -174,6 +174,10 @@ DOMAIN_NAME = os.environ.get("DOMAIN_NAME", "http://127.0.0.1:8000")
 
 HACKEREARTH_SECRET_KEY = os.environ.get("HACKEREARTH_SECRET_KEY")
 HACKEREARTH_CLIENT_ID = os.environ.get("HACKEREARTH_CLIENT_ID")
+HACKEREARTH_SUBMISSION_URL = (
+    "https://api.hackerearth.com/v4/partner/code-evaluation/submissions/"
+)
 LANGUAGE_SUPPORTED = "CPP"
 
-PARALLEL_DOTS_API_KEY = os.environ.get("PARALLEL_DOTS_API_KEY")
+DANDELION_API_KEY = os.environ.get("DANDELION_API_KEY")
+DANDELION_API_URL = "https://api.dandelion.eu/datatxt/sim/v1"
